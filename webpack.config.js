@@ -6,7 +6,7 @@ module.exports = {
   mode: "development",
   entry: {
     app: [
-      './src/app/App.tsx', 
+      './src/app/index.tsx', 
       'webpack-hot-middleware/client'
     ],
     vendor: ['react', 'react-dom']
