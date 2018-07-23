@@ -3,22 +3,26 @@ import ResultCard from './ResultCard';
 import { Grid } from '@material-ui/core';
 import spacing from '@material-ui/core/styles/spacing';
 
-const ResultsArea = () => {
+interface IResultsAreaProps {
+  results: any[]
+}
+
+const ResultsArea = (props: IResultsAreaProps) => {
   return (
     <Grid
       container
       justify="center"
       spacing={0}>
       {
-        [0,1,2,3,4].map(i => {
+        props.results.map(product => {
           return (
             <Grid
               item
-              key={i}
+              key={product.Barcode}
               style={{
                 margin: spacing.unit,
               }}>
-              <ResultCard />
+              <ResultCard product={product} />
             </Grid>
           );
         })

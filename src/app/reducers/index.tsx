@@ -1,5 +1,5 @@
 import * as actions from '../actions/ActionTypes';
-import IState from '../interfaces/IState';
+import IState from '../interfaces/IReduxState';
 
 interface IAction {
   type: string,

@@ -8,15 +8,16 @@ import Theme from '../config/theme';
 import UpperBar from "./Upperbar";
 import SearchArea from './SearchArea';
 import ResultsArea from "./ResultsArea";
-import IState from '../interfaces/IState';
+import IReduxState from '../interfaces/IReduxState';
 import { addSearchHistoryTerm } from '../actions/SearchActions';
 
-class App extends React.Component {
+class App extends React.Component<any, any> {
   constructor(props: any, context: any) {
     super(props, context);
 
     this.state = {
-      searchTerm: ''
+      searchTerm: '',
+      searchResults: []
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -43,8 +44,23 @@ class App extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(query),
-    }).then(resp => console.log(resp.json()));
-    
+    }).then(resp => resp.json())
+    .then(resp => {
+      let products: any = [];
+      resp.Products.map(prods => {
+        prods.Products.map(pro => {
+          products.push(pro)
+        });
+      });
+
+      console.log(products);
+
+      this.setState({
+        searchTerm: term,
+        searchResults: products,
+      });
+    })
+    .catch(err => console.log(err));
   }
 
   render() {
@@ -53,14 +69,14 @@ class App extends React.Component {
         <Theme>
           <UpperBar />
           <SearchArea searchAction={this.handleSearch} />
-          <ResultsArea />
+          <ResultsArea results={this.state.searchResults} />
         </Theme>
       </CssBaseline>
     );
   }
 }
 
-const mapStateToProps = (state: IState) => {
+const mapStateToProps = (state: IReduxState) => {
   return {
     searchHistoryTerms: state.searchHistoryTerms
   }

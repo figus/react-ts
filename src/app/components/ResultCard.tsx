@@ -2,25 +2,36 @@ import * as React from 'react';
 
 import { Card, CardContent, CardMedia, CardActions, Button, Typography, CardHeader } from '@material-ui/core';
 
+interface IResultCard {
+  product: any,
+}
+
 const styles = {
   card: {
+    width: 200,
   },
   media: {
     height: 200,
+  },
+  title: {
+    fontSize: "1rem",
+    fontWeight: 500
   }
 }
 
-const ResultCard = () => {
+const ResultCard = (props: IResultCard) => {
   return (
     <Card style={styles.card}>
-      <CardHeader
-        title="Titulo" />
+      <CardHeader 
+        title={props.product.SmallFormatDescription}
+        style={styles.title} />
       <CardMedia
         style={styles.media}
-        image="http://placebear.com/300/200" />
+        image={props.product.MediumImageFile} />
       <CardContent>
         <Typography component="p">
-          Contenido de la tarjeta
+          Price: {props.product.Price} <br />
+          Content: {props.product.PackageSize} {props.product.HasCupPrice && `(${props.product.CupString})`}
         </Typography>
       </CardContent>
       <CardActions>
