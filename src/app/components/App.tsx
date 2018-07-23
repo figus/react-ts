@@ -10,6 +10,7 @@ import SearchArea from './SearchArea';
 import ResultsArea from "./ResultsArea";
 import IReduxState from '../interfaces/IReduxState';
 import { addSearchHistoryTerm } from '../actions/SearchActions';
+import IProduct from "../interfaces/IProduct";
 
 class App extends React.Component<any, any> {
   constructor(props: any, context: any) {
@@ -46,10 +47,19 @@ class App extends React.Component<any, any> {
       body: JSON.stringify(query),
     }).then(resp => resp.json())
     .then(resp => {
-      let products: any = [];
+      let products: IProduct[] = [];
       resp.Products.map(prods => {
         prods.Products.map(pro => {
-          products.push(pro)
+          products.push({
+            barcode: pro.Barcode,
+            hasCupString: pro.HasCupString,
+            cupString: pro.CupString,
+            image: pro.MediumImageFile,
+            name: pro.Name,
+            price: pro.Price,
+            packageSize: pro.PackageSize,
+            origin: 'woolworths'
+          })
         });
       });
 
