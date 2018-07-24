@@ -2,7 +2,7 @@ import * as React from 'react';
 import ResultCard from './ResultCard';
 import { Grid } from '@material-ui/core';
 import spacing from '@material-ui/core/styles/spacing';
-import IProduct from '../interfaces/IProduct';
+import IProduct from '../../interfaces/IProduct';
 
 interface IResultsAreaProps {
   results: any[]

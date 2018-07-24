@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Card, CardContent, CardMedia, CardActions, Button, Typography, CardHeader } from '@material-ui/core';
-import IProduct from '../interfaces/IProduct';
+import IProduct from '../../interfaces/IProduct';
 
 interface IResultCard {
   product: IProduct,
