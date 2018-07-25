@@ -18,7 +18,8 @@ class SearchPage extends React.Component<any, any> {
 
     this.state = {
       searchTerm: '',
-      searchResults: []
+      searchResults: [],
+      searching: false,
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -26,6 +27,9 @@ class SearchPage extends React.Component<any, any> {
 
   handleSearch(event: React.SyntheticEvent) {
     event.preventDefault();
+    this.setState({
+      searching: true,
+    });
     let term: string = (document.querySelector('#searchField') as HTMLInputElement).value;
     
     let queryUrl =  'https://thingproxy.freeboard.io/fetch/https://www.woolworths.com.au/apis/ui/Search/products';
@@ -68,9 +72,15 @@ class SearchPage extends React.Component<any, any> {
       this.setState({
         searchTerm: term,
         searchResults: products,
+        searching: false,
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      this.setState({
+        searching: false,
+      });
+      console.log(err);
+    });
   }
 
   render() {
@@ -78,7 +88,7 @@ class SearchPage extends React.Component<any, any> {
       <div>
         <SearchArea 
           searchAction={this.handleSearch}
-          searching={true} />
+          searching={this.state.searching} />
         <ResultsArea results={this.state.searchResults} />
       </div>
     );

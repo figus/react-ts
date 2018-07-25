@@ -3,7 +3,6 @@ import * as React from 'react';
 import './Search.css';
 
 import TextField from '@material-ui/core/TextField';
-import spacing from '@material-ui/core/styles/spacing';
 import { Grid } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
