@@ -9,6 +9,8 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import { ListItem, ListItemIcon, ListItemText, Icon, Divider, ListSubheader } from '@material-ui/core';
 
+import { Link } from 'react-router-dom';
+
 const styles = {
   root: {
     flexGrow: 1
@@ -27,6 +29,7 @@ const styles = {
 
 interface IUpperBarState {
   openDrawer: boolean,
+  title: string,
 }
 
 class UpperBar extends React.Component<any, IUpperBarState> {
@@ -35,6 +38,7 @@ class UpperBar extends React.Component<any, IUpperBarState> {
 
     this.state = {
       openDrawer: false,
+      title: '',
     }
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
@@ -43,7 +47,7 @@ class UpperBar extends React.Component<any, IUpperBarState> {
   toggleDrawer = (open: boolean) => () => {
     this.setState({
       openDrawer: open,
-    })
+    });
   }
 
   render() {
@@ -64,7 +68,7 @@ class UpperBar extends React.Component<any, IUpperBarState> {
               style={styles.flex} 
               variant="title" 
               color="inherit">
-              Price Check
+              {this.state.title}
             </Typography>
           </Toolbar>
         </Appbar>
@@ -80,14 +84,24 @@ class UpperBar extends React.Component<any, IUpperBarState> {
                 Price Checker
               </ListSubheader>
             }>
-            <ListItem button>
+            <ListItem 
+              button
+              onClick={this.toggleDrawer(false)}
+              component={
+                props => <Link {...props} to="/search" />
+              }>
               <ListItemIcon>
                 <Icon>search</Icon>
               </ListItemIcon>
               <ListItemText
                 primary="Search" />
             </ListItem>
-            <ListItem button>
+            <ListItem 
+              button
+              onClick={this.toggleDrawer(false)}
+              component={
+                props => <Link {...props} to="/" />
+              }>
               <ListItemIcon>
                 <Icon>list</Icon>
               </ListItemIcon>
@@ -95,7 +109,12 @@ class UpperBar extends React.Component<any, IUpperBarState> {
                 primary="My list" />
             </ListItem>
             <Divider />
-            <ListItem button>
+            <ListItem 
+              button
+              onClick={this.toggleDrawer(false)}
+              component={
+                props => <Link {...props} to="/about" />
+              }>
               <ListItemIcon>
                 <Icon>code</Icon>
               </ListItemIcon>

@@ -6,7 +6,9 @@ import { Grid } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import IconButton from '@material-ui/core/IconButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
+/** @type {{search: React.CSSProperties}} */
 const styles = {
   container: {
     display: 'flex',
@@ -18,11 +20,16 @@ const styles = {
   },
   searchButton: {
     marginTop: 23,
+  },
+  searchLoading: {
+    marginTop: 25,
+    marginLeft: -47,
   }
 }
 
 interface ISearchAreaProps {
-  searchAction: any
+  searchAction: any,
+  searching: boolean,
 }
 
 const SearchArea = (props: ISearchAreaProps) => {
@@ -57,6 +64,7 @@ const SearchArea = (props: ISearchAreaProps) => {
             onClick={props.searchAction}>
             <ArrowForwardIcon />
           </IconButton>
+          { props.searching && <CircularProgress size={46} style={styles.searchLoading} />}
         </Grid>
       </Grid>
     </form>

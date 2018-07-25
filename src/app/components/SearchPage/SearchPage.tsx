@@ -76,7 +76,9 @@ class SearchPage extends React.Component<any, any> {
   render() {
     return (
       <div>
-        <SearchArea searchAction={this.handleSearch} />
+        <SearchArea 
+          searchAction={this.handleSearch}
+          searching={true} />
         <ResultsArea results={this.state.searchResults} />
       </div>
     );
