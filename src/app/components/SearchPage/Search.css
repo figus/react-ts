@@ -9,10 +9,11 @@
 }
 
 .searchButton {
-  margin-top: 23px;
+  margin-top: 23px !important;
 }
 
 .searchLoading {
+  position: absolute;
   margin-top: 25px;
   margin-left: -47px;
 }

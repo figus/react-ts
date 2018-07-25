@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import './Search.css';
+
 import TextField from '@material-ui/core/TextField';
 import spacing from '@material-ui/core/styles/spacing';
 import { Grid } from '@material-ui/core';
@@ -7,25 +9,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-/** @type {{search: React.CSSProperties}} */
-const styles = {
-  container: {
-    display: 'flex',
-    paddingLeft: spacing.unit * 2,
-    paddingRight: spacing.unit * 2,
-  },
-  searchIcon: {
-    marginTop: 37,
-  },
-  searchButton: {
-    marginTop: 23,
-  },
-  searchLoading: {
-    marginTop: 25,
-    marginLeft: -47,
-  }
-}
 
 interface ISearchAreaProps {
   searchAction: any,
@@ -35,7 +18,7 @@ interface ISearchAreaProps {
 const SearchArea = (props: ISearchAreaProps) => {
   return (
     <form 
-      style={styles.container}
+      className="container"
       noValidate
       autoComplete="off"
       onSubmit={props.searchAction}>
@@ -43,7 +26,8 @@ const SearchArea = (props: ISearchAreaProps) => {
         container
         spacing={8}>
         <Grid item>
-          <SearchIcon style={styles.searchIcon} />
+          <SearchIcon 
+            className="searchIcon" />
         </Grid>
         <Grid item xs>
           <TextField
@@ -59,12 +43,12 @@ const SearchArea = (props: ISearchAreaProps) => {
         <Grid item>
           <IconButton 
             aria-label="Search" 
-            style={styles.searchButton}
+            className="searchButton"
             type="submit"
             onClick={props.searchAction}>
             <ArrowForwardIcon />
           </IconButton>
-          { props.searching && <CircularProgress size={46} style={styles.searchLoading} />}
+          { props.searching && <CircularProgress size={46} className="searchLoading" />}
         </Grid>
       </Grid>
     </form>
