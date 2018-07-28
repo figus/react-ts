@@ -12,8 +12,12 @@
   margin-top: 23px !important;
 }
 
-.searchLoading {
+.circularProgress {
   position: absolute;
   margin-top: 25px;
   margin-left: -47px;
+}
+
+.linearProgress {
+  top: -10px;
 }
