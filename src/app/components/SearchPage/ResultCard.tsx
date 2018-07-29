@@ -3,9 +3,9 @@ import * as React from 'react';
 import { Card, CardContent, CardMedia, CardActions, Button, Typography, CardHeader } from '@material-ui/core';
 import IProduct from '../../interfaces/IProduct';
 
-interface IResultCard {
-  product: IProduct,
-}
+import { connect } from 'react-redux';
+import * as actions from './../../actions/SearchActions';
+import IReduxState from '../../interfaces/IReduxState';
 
 const styles = {
   card: {
@@ -21,10 +21,34 @@ const styles = {
     minHeight: 40,
     maxHeight: 40,
     overflow: 'hidden',
+  }, 
+  addButton: {
+    marginLeft: 'auto',
   }
 }
 
+interface IStateProps {
+  myList: string[],
+}
+interface IOwnProps {
+  product: IProduct,
+}
+interface IDispatchProps {
+  addToMyList: (barcode: string) => void,
+}
+interface IResultCard extends IStateProps, IOwnProps, IDispatchProps {}
+
 const ResultCard = (props: IResultCard) => {
+  
+  const addHandler = (barcode: string) => {
+    console.log(barcode);
+    console.log(props.myList.filter((code) => barcode == code));
+    if(props.myList.filter((code) => barcode == code).length === 0)
+    {
+      props.addToMyList(barcode);
+    }
+  };
+
   return (
     <Card style={styles.card}>
       <CardHeader 
@@ -46,17 +70,26 @@ const ResultCard = (props: IResultCard) => {
       <CardActions>
         <Button 
           size="small"
-          color="primary">
-          Action 1
-        </Button>
-        <Button 
-          size="small"
-          color="primary">
-          Action 2
+          color="primary"
+          style={styles.addButton}
+          onClick={addHandler.bind(this, props.product.barcode)}>
+          Add to my list
         </Button>
       </CardActions>
     </Card>
   );
 };
 
-export default ResultCard;
+const mapStateToProps = (store: IReduxState) => {
+  return {
+    myList: store.myList,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Function) => {
+  return {
+      addToMyList: (barcode: string) => dispatch(actions.addToMyList(barcode)),
+  };
+};
+
+export default connect<IStateProps, IDispatchProps, IOwnProps>(mapStateToProps, mapDispatchToProps)(ResultCard);

@@ -7,7 +7,8 @@ interface IAction {
 }
 
 const initialState: IState = {
-  searchHistoryTerms: []
+  searchHistoryTerms: [],
+  myList: [],
 };
 
 const rootReducer = (state = initialState, action: IAction) => {
@@ -17,6 +18,14 @@ const rootReducer = (state = initialState, action: IAction) => {
         ...state,
         searchHistoryTerms: [
           ...state.searchHistoryTerms, 
+          action.payload
+        ],
+      };
+    case actions.ADD_TO_MY_LIST:
+      return {
+        ...state,
+        myList: [
+          ...state.myList,
           action.payload
         ],
       };

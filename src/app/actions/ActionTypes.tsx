@@ -1,1 +1,2 @@
 export const ADD_SEARCH_HISTORY_TERM = "ADD_SEARCH_HISTORY_TERM";
+export const ADD_TO_MY_LIST = "ADD_TO_MY_LIST";
