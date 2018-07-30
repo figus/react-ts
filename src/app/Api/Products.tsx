@@ -43,3 +43,13 @@ export const productSearch = (term: string): Promise<IProduct[]> => {
       throw new Error('Error al buscar producto');
     });
 };
+
+export const barcodeSearch = (barcode: string): Promise<IProduct> => {
+  return productSearch(barcode).then((res: IProduct[]) => {
+    return res
+      .filter((item: IProduct) => {
+        return item.barcode === barcode;
+      })
+      .shift();
+  });
+};
