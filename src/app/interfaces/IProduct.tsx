@@ -7,4 +7,5 @@ export default interface IProduct {
   name: string,
   packageSize: string,
   origin: string,
+  onSale: boolean,
 }
