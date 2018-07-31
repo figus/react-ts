@@ -1,36 +1,41 @@
 import * as React from 'react';
-import MyListCard from './MyListCard';
 import { Grid } from '@material-ui/core';
-import spacing from '@material-ui/core/styles/spacing';
 import IProduct from '../../interfaces/IProduct';
+import * as ProductFn from './../../Api/Products';
+import ProductCard from './ProductCard';
+import Async from 'react-promise';
 
-interface IStateProps
+interface IMyListAreaProps
 {
+  // products: IProduct[];
+  barcodeList: string[];
 }
-interface IOwnProps
+
+const productCard = (product: IProduct) =>
 {
-  products: IProduct[];
-}
-interface IMyListAreaProps extends IStateProps, IOwnProps { }
+  return (
+    <ProductCard product={product} />
+  );
+};
 
 const MyListArea = (props: IMyListAreaProps) =>
 {
+
   return (
-    <Grid container justify="center" alignItems="stretch" spacing={0}>
-      {props.products.map((product: IProduct) =>
+    <Grid container={true} justify="center" alignItems="stretch" spacing={0}>
       {
-        return (
-          <Grid
-            item
-            key={product.barcode}
-            style={{
-              margin: spacing.unit
-            }}
-          >
-            <MyListCard product={product} />
-          </Grid>
-        );
-      })}
+        ProductFn.barcodeListSearchAsync(props.barcodeList).map((pp: Promise<IProduct>) =>
+        {
+          return (
+            // tslint:disable-next-line:jsx-key
+            <Async
+              promise={pp}
+              then={productCard}
+              pending={productCard.bind(this, undefined)}
+            />
+          );
+        })
+      }
     </Grid>
   );
 };
