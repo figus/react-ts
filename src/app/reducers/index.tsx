@@ -1,24 +1,27 @@
 import * as actions from '../actions/ActionTypes';
 import IState from '../interfaces/IReduxState';
 
-interface IAction {
-  type: string,
-  payload: string
+interface IAction
+{
+  type: string;
+  payload: string;
 }
 
 const initialState: IState = {
   searchHistoryTerms: [],
-  myList: [],
+  myList: ['9300610637001', '11210607033'],
 };
 
-const rootReducer = (state = initialState, action: IAction) => {
-  switch(action.type) {
+const rootReducer = (state = initialState, action: IAction) =>
+{
+  switch (action.type)
+  {
     case actions.ADD_SEARCH_HISTORY_TERM:
       return {
         ...state,
         searchHistoryTerms: [
-          ...state.searchHistoryTerms, 
-          action.payload
+          ...state.searchHistoryTerms,
+          action.payload,
         ],
       };
     case actions.ADD_TO_MY_LIST:
@@ -26,11 +29,11 @@ const rootReducer = (state = initialState, action: IAction) => {
         ...state,
         myList: [
           ...state.myList,
-          action.payload
+          action.payload,
         ],
       };
     default:
-      return state;    
+      return state;
   }
 };
 
