@@ -17,18 +17,20 @@ const styles = {
     minHeight: 40,
     maxHeight: 40,
     overflow: 'hidden',
-  }, 
+  },
   addButton: {
     marginLeft: 'auto',
   }
 }
-interface IMyListCard {
+interface IMyListCard
+{
   product: IProduct,
 }
-const MyListCard = (props: IMyListCard) => {
+const MyListCard = (props: IMyListCard) =>
+{
   return (
     <Card style={styles.card}>
-      <CardHeader 
+      <CardHeader
         title={
           <Typography
             style={styles.title}>
@@ -40,7 +42,7 @@ const MyListCard = (props: IMyListCard) => {
         image={props.product.image} />
       <CardContent>
         <Typography component="p">
-          Price: {props.product.price.toLocaleString('en-AU', {style: 'currency', currency: 'AUD'})} <br />
+          Price: {props.product.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })} <br />
           Content: {props.product.packageSize} {props.product.hasCupString && `(${props.product.cupString})`}
         </Typography>
       </CardContent>

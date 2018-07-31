@@ -4,17 +4,21 @@ import { Grid } from '@material-ui/core';
 import spacing from '@material-ui/core/styles/spacing';
 import IProduct from '../../interfaces/IProduct';
 
-interface IStateProps {
+interface IStateProps
+{
 }
-interface IOwnProps {
+interface IOwnProps
+{
   products: IProduct[];
 }
-interface IMyListAreaProps extends IStateProps, IOwnProps {}
+interface IMyListAreaProps extends IStateProps, IOwnProps { }
 
-const MyListArea = (props: IMyListAreaProps) => {
+const MyListArea = (props: IMyListAreaProps) =>
+{
   return (
     <Grid container justify="center" alignItems="stretch" spacing={0}>
-      { props.products.map((product: IProduct) => {
+      {props.products.map((product: IProduct) =>
+      {
         return (
           <Grid
             item

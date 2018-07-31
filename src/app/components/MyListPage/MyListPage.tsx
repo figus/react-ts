@@ -5,14 +5,17 @@ import IProduct from './../../interfaces/IProduct';
 import * as ProductFn from './../../Api/Products';
 import MyListArea from './MyListArea';
 
-interface IMyListPage {
+interface IMyListPage
+{
   myList: string[],
 }
-interface IState {
+interface IState
+{
   products: IProduct[],
 }
 class MyListPage extends React.Component<IMyListPage, IState> {
-  constructor(props, context) {
+  constructor(props, context)
+  {
     super(props, context);
 
     this.state = {
@@ -20,22 +23,29 @@ class MyListPage extends React.Component<IMyListPage, IState> {
     }
   }
 
-  getAllProducts = (list: string[]) => {
-    list.forEach((item: string) => {
-      ProductFn.barcodeSearch(item).then((res: IProduct) => {
+  getAllProducts = (list: string[]) =>
+  {
+    list.forEach((item: string) =>
+    {
+
+      ProductFn.barcodeSearch(item).then((res: IProduct) =>
+      {
         this.setState((prevState: IState) => ({
           products: prevState.products.concat(res)
         }));
       });
+
     });
   };
 
-  componentDidMount() {
+  componentDidMount()
+  {
     this.getAllProducts(this.props.myList);
   }
 
-  render() {
-    return(
+  render()
+  {
+    return (
       <div>
         {this.props.myList}
         <MyListArea products={this.state.products} />
@@ -44,7 +54,8 @@ class MyListPage extends React.Component<IMyListPage, IState> {
   }
 }
 
-const mapStateToProps = (state: IReduxState) => {
+const mapStateToProps = (state: IReduxState) =>
+{
   return {
     myList: state.myList,
   };
