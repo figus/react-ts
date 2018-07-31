@@ -11,16 +11,18 @@ const theme = createMuiTheme({
   },
 });
 
-interface IProps {
+interface IProps
+{
   children: JSX.Element[];
-};
+}
 
-const res = (props: IProps) => {
+const res = (props: IProps) =>
+{
   return (
     <MuiThemeProvider theme={theme}>
-      { props.children }
+      {props.children}
     </MuiThemeProvider>
   );
-}
+};
 
 export default res;

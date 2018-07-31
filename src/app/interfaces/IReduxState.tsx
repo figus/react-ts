@@ -1,4 +1,5 @@
-export default interface IReduxState {
-  searchHistoryTerms: string[],
-  myList: string[],
+export default interface IReduxState
+{
+  searchHistoryTerms: string[];
+  myList: string[];
 }

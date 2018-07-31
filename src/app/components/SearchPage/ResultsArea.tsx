@@ -4,26 +4,31 @@ import { Grid } from '@material-ui/core';
 import spacing from '@material-ui/core/styles/spacing';
 import IProduct from '../../interfaces/IProduct';
 
-interface IResultsAreaProps {
-  results: any[]
+interface IResultsAreaProps
+{
+  results: any[];
 }
 
-const ResultsArea = (props: IResultsAreaProps) => {
+const ResultsArea = (props: IResultsAreaProps) =>
+{
   return (
     <Grid
-      container
+      container={true}
       justify="center"
       alignItems="stretch"
-      spacing={0}>
+      spacing={0}
+    >
       {
-        props.results.map((product: IProduct) => {
+        props.results.map((product: IProduct) =>
+        {
           return (
             <Grid
-              item
+              item={true}
               key={product.barcode}
               style={{
                 margin: spacing.unit,
-              }}>
+              }}
+            >
               <ResultCard product={product} />
             </Grid>
           );
@@ -31,6 +36,6 @@ const ResultsArea = (props: IResultsAreaProps) => {
       }
     </Grid>
   );
-}
+};
 
 export default ResultsArea;

@@ -13,119 +13,135 @@ import { Link } from 'react-router-dom';
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   flex: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20
+    marginRight: 20,
   },
   list: {
-    width: 300
-  }
+    width: 300,
+  },
 };
 
-interface IUpperBarState {
-  openDrawer: boolean,
-  title: string,
+interface IUpperBarState
+{
+  openDrawer: boolean;
+  title: string;
 }
 
 class UpperBar extends React.Component<any, IUpperBarState> {
-  constructor(props, context) {
+  constructor(props, context)
+  {
     super(props, context);
 
     this.state = {
       openDrawer: false,
       title: '',
-    }
+    };
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
-  toggleDrawer = (open: boolean) => () => {
-    this.setState({
-      openDrawer: open,
-    });
-  }
-
-  render() {
+  public render()
+  {
     return (
       <div>
-        <Appbar 
-          position="static" 
-          color="primary">
+        <Appbar
+          position="static"
+          color="primary"
+        >
           <Toolbar>
             <IconButton
               onClick={this.toggleDrawer(true)}
-              style={styles.menuButton} 
-              color="inherit" 
-              aria-label="Menu">
+              style={styles.menuButton}
+              color="inherit"
+              aria-label="Menu"
+            >
               <MenuIcon />
             </IconButton>
-            <Typography 
-              style={styles.flex} 
-              variant="title" 
-              color="inherit">
+            <Typography
+              style={styles.flex}
+              variant="title"
+              color="inherit"
+            >
               {this.state.title}
             </Typography>
           </Toolbar>
         </Appbar>
         <Drawer
           open={this.state.openDrawer}
-          onClose={this.toggleDrawer(false)}>
+          onClose={this.toggleDrawer(false)}
+        >
           <List
             component="nav"
             style={styles.list}
             subheader={
-              <ListSubheader 
-                component="div">
+              <ListSubheader
+                component="div"
+              >
                 Price Checker
               </ListSubheader>
-            }>
-            <ListItem 
-              button
+            }
+          >
+            <ListItem
+              button={true}
               onClick={this.toggleDrawer(false)}
               component={
-                props => <Link {...props} to="/search" />
-              }>
+                (props) => <Link {...props} to="/search" />
+              }
+            >
               <ListItemIcon>
                 <Icon>search</Icon>
               </ListItemIcon>
               <ListItemText
-                primary="Search" />
+                primary="Search"
+              />
             </ListItem>
-            <ListItem 
-              button
+            <ListItem
+              button={true}
               onClick={this.toggleDrawer(false)}
               component={
-                props => <Link {...props} to="/" />
-              }>
+                (props) => <Link {...props} to="/" />
+              }
+            >
               <ListItemIcon>
                 <Icon>list</Icon>
               </ListItemIcon>
               <ListItemText
-                primary="My list" />
+                primary="My list"
+              />
             </ListItem>
             <Divider />
-            <ListItem 
-              button
+            <ListItem
+              button={true}
               onClick={this.toggleDrawer(false)}
               component={
-                props => <Link {...props} to="/about" />
-              }>
+                (props) => <Link {...props} to="/about" />
+              }
+            >
               <ListItemIcon>
                 <Icon>code</Icon>
               </ListItemIcon>
               <ListItemText
-                primary="About" />
+                primary="About"
+              />
             </ListItem>
           </List>
         </Drawer>
       </div>
     );
   }
-};
+
+  private toggleDrawer = (open: boolean) => () =>
+  {
+    this.setState({
+      openDrawer: open,
+    });
+  }
+}
 
 export default UpperBar;

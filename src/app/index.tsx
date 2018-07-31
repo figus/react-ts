@@ -15,9 +15,10 @@ ReactDOM.render(
       <App />
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
-if (module.hot) {
+if (module.hot)
+{
   module.hot.accept();
 }

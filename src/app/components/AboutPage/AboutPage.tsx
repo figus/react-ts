@@ -1,12 +1,15 @@
 import * as React from 'react';
 
-class AboutPage extends React.Component {
-  constructor(props, context) {
+class AboutPage extends React.Component
+{
+  constructor(props, context)
+  {
     super(props, context);
   }
 
-  render() {
-    return(
+  public render()
+  {
+    return (
       <div>
         About Page
       </div>

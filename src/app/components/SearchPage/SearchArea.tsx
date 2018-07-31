@@ -9,26 +9,31 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-interface ISearchAreaProps {
-  searchAction: any,
-  searching: boolean,
+interface ISearchAreaProps
+{
+  searchAction: any;
+  searching: boolean;
 }
 
-const SearchArea = (props: ISearchAreaProps) => {
+const SearchArea = (props: ISearchAreaProps) =>
+{
   return (
-    <form 
+    <form
       className="container"
-      noValidate
+      noValidate={true}
       autoComplete="off"
-      onSubmit={props.searchAction}>
-      <Grid 
-        container
-        spacing={8}>
-        <Grid item>
-          <SearchIcon 
-            className="searchIcon" />
+      onSubmit={props.searchAction}
+    >
+      <Grid
+        container={true}
+        spacing={8}
+      >
+        <Grid item={true}>
+          <SearchIcon
+            className="searchIcon"
+          />
         </Grid>
-        <Grid item xs>
+        <Grid item={true} xs={true}>
           <TextField
             id="searchField"
             name="searchField"
@@ -36,16 +41,17 @@ const SearchArea = (props: ISearchAreaProps) => {
             type="search"
             placeholder="Enter a term or barcode to search"
             margin="normal"
-            fullWidth
+            fullWidth={true}
           />
-          { props.searching && <LinearProgress className="linearProgress" /> }
+          {props.searching && <LinearProgress className="linearProgress" />}
         </Grid>
-        <Grid item>
-          <IconButton 
-            aria-label="Search" 
+        <Grid item={true}>
+          <IconButton
+            aria-label="Search"
             className="searchButton"
             type="submit"
-            onClick={props.searchAction}>
+            onClick={props.searchAction}
+          >
             <ArrowForwardIcon />
           </IconButton>
         </Grid>

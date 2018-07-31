@@ -10,44 +10,21 @@ import IProduct from '../../interfaces/IProduct';
 import { productSearch } from './../../Api/Products';
 
 class SearchPage extends React.Component<any, any> {
-  constructor(props: any, context: any) {
+  constructor(props: any, context: any)
+  {
     super(props, context);
 
     this.state = {
       searchTerm: '',
       searchResults: [],
-      searching: false
+      searching: false,
     };
 
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  handleSearch(event: React.SyntheticEvent) {
-    event.preventDefault();
-    this.setState({
-      searching: true
-    });
-
-    let term: string = (document.querySelector(
-      '#searchField'
-    ) as HTMLInputElement).value;
-
-    productSearch(term)
-      .then((products: IProduct[]) => {
-        this.setState({
-          searchTerm: term,
-          searchResults: products,
-          searching: false
-        });
-      })
-      .catch(err => {
-        this.setState({
-          searching: false
-        });
-      });
-  }
-
-  render() {
+  public render()
+  {
     return (
       <div>
         <SearchArea
@@ -58,21 +35,46 @@ class SearchPage extends React.Component<any, any> {
       </div>
     );
   }
+
+  private handleSearch(event: React.SyntheticEvent)
+  {
+    event.preventDefault();
+    this.setState({
+      searching: true,
+    });
+
+    const term: string = (document.querySelector('#searchField') as HTMLInputElement).value;
+
+    productSearch(term)
+      .then((products: IProduct[]) =>
+      {
+        this.setState({
+          searchTerm: term,
+          searchResults: products,
+          searching: false,
+        });
+      })
+      .catch(() =>
+      {
+        this.setState({
+          searching: false,
+        });
+      });
+  }
 }
 
-const mapStateToProps = (state: IReduxState) => {
+const mapStateToProps = (state: IReduxState) =>
+{
   return {
-    searchHistoryTerms: state.searchHistoryTerms
+    searchHistoryTerms: state.searchHistoryTerms,
   };
 };
 
-const mapDispatchToProps = (dispatch: Function) => {
+const mapDispatchToProps = (dispatch: any) =>
+{
   return {
-    addSearchHistoryTerm: (term: string) => dispatch(addSearchHistoryTerm(term))
+    addSearchHistoryTerm: (term: string) => dispatch(addSearchHistoryTerm(term)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
