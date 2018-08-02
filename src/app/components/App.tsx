@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Theme from '../config/theme';
 
 import UpperBar from './Upperbar';
+import ScanPage from './ScanPage/ScanPage';
 import SearchPage from './SearchPage/SearchPage';
 import MyListPage from './MyListPage/MyListPage';
 import AboutPage from './AboutPage/AboutPage';
@@ -25,6 +26,7 @@ class App extends React.Component
           <Switch>
             <Route exact={true} path="/" component={MyListPage} />
             <Route path="/search" component={SearchPage} />
+            <Route path="/scan" component={ScanPage} />
             <Route path="/about" component={AboutPage} />
           </Switch>
         </Theme>
