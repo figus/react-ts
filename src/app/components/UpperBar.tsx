@@ -3,11 +3,13 @@ import * as React from 'react';
 import Appbar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import { ListItem, ListItemIcon, ListItemText, Icon, Divider, ListSubheader } from '@material-ui/core';
+import { ListItem, ListItemIcon, ListItemText, Divider, ListSubheader } from '@material-ui/core';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBarcode, faSearch, faList, faCode, faBars } from '@fortawesome/free-solid-svg-icons';
 
 import { Link } from 'react-router-dom';
 
@@ -61,7 +63,8 @@ class UpperBar extends React.Component<any, IUpperBarState> {
               color="inherit"
               aria-label="Menu"
             >
-              <MenuIcon />
+              <FontAwesomeIcon icon={faBars} />
+
             </IconButton>
             <Typography
               style={styles.flex}
@@ -95,10 +98,24 @@ class UpperBar extends React.Component<any, IUpperBarState> {
               }
             >
               <ListItemIcon>
-                <Icon>search</Icon>
+                <FontAwesomeIcon icon={faSearch} />
               </ListItemIcon>
               <ListItemText
                 primary="Search"
+              />
+            </ListItem>
+            <ListItem
+              button={true}
+              onClick={this.toggleDrawer(false)}
+              component={
+                (props) => <Link {...props} to="/scan" />
+              }
+            >
+              <ListItemIcon>
+                <FontAwesomeIcon icon={faBarcode} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Scan Barcode"
               />
             </ListItem>
             <ListItem
@@ -109,7 +126,7 @@ class UpperBar extends React.Component<any, IUpperBarState> {
               }
             >
               <ListItemIcon>
-                <Icon>list</Icon>
+                <FontAwesomeIcon icon={faList} />
               </ListItemIcon>
               <ListItemText
                 primary="My list"
@@ -124,7 +141,7 @@ class UpperBar extends React.Component<any, IUpperBarState> {
               }
             >
               <ListItemIcon>
-                <Icon>code</Icon>
+                <FontAwesomeIcon icon={faCode} />
               </ListItemIcon>
               <ListItemText
                 primary="About"
