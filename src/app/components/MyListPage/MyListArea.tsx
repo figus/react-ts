@@ -22,17 +22,31 @@ const MyListArea = (props: IMyListAreaProps) =>
 {
 
   return (
-    <Grid container={true} justify="center" alignItems="stretch" spacing={0}>
+    <Grid
+      container={true}
+      justify="center"
+      alignItems="stretch"
+      spacing={0}
+    >
       {
         ProductFn.barcodeListSearchAsync(props.barcodeList).map((pp: Promise<IProduct>) =>
         {
           return (
             // tslint:disable-next-line:jsx-key
-            <Async
-              promise={pp}
-              then={productCard}
-              pending={productCard.bind(this, undefined)}
-            />
+            <Grid
+              item={true}
+              xs={6}
+              sm={4}
+              style={{
+                maxWidth: 225,
+              }}
+            >
+              <Async
+                promise={pp}
+                then={productCard}
+                pending={productCard.bind(this, undefined)}
+              />
+            </Grid>
           );
         })
       }

@@ -1,16 +1,16 @@
 import * as React from 'react';
 
-import { Card, CardContent, CardMedia, CardActions, Button, Typography, CardHeader } from '@material-ui/core';
+import { Card, CardContent, CardMedia, CardActions, Typography, CardHeader, Grid } from '@material-ui/core';
 import IProduct from '../../interfaces/IProduct';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = {
   card: {
-    width: 200,
-    height: 374,
+    height: 290,
   },
   media: {
-    height: 200,
+    height: 120,
+    backgroundSize: 120,
   },
   title: {
     fontSize: '0.875rem',
