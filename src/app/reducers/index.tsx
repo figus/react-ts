@@ -9,7 +9,8 @@ interface IAction
 
 const initialState: IState = {
   searchHistoryTerms: [],
-  myList: ['9300610637001', '11210607033'],
+  myList: ['9300610637001', '11210607033', '9300610637001', '11210607033',
+  '9300610637001', '11210607033', '9300610637001', '11210607033'],
 };
 
 const rootReducer = (state = initialState, action: IAction) =>
