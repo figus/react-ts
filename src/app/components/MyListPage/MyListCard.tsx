@@ -1,32 +1,11 @@
 import * as React from 'react';
 
+import './MyList.css';
+
 import { Card, CardContent, CardMedia, CardActions, Typography, CardHeader, Grid } from '@material-ui/core';
 import IProduct from '../../interfaces/IProduct';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const styles = {
-  card: {
-    height: 290,
-  },
-  media: {
-    height: 120,
-    backgroundSize: 120,
-  },
-  title: {
-    fontSize: '0.875rem',
-    fontWeight: 500,
-    minHeight: 40,
-    maxHeight: 40,
-    overflow: 'hidden',
-  },
-  addButton: {
-    marginLeft: 'auto',
-  },
-  contentLoading: {
-    marginTop: '40%',
-    marginLeft: '25%',
-  },
-};
 interface IMyListCard
 {
   product: IProduct;
@@ -36,17 +15,17 @@ const MyListCard = (props: IMyListCard) =>
   if (props.product === undefined)
   {
     return (
-      <Card style={styles.card}>
+      <Card className="card">
         <CardHeader
           title={
             <Typography
-              style={styles.title}
+              className="title"
             >
               Loading...
             </Typography>
           }
         />
-        <CardContent style={styles.contentLoading}>
+        <CardContent className="contentLoading">
           <CircularProgress size={50} />
         </CardContent>
         <CardActions />
@@ -55,18 +34,18 @@ const MyListCard = (props: IMyListCard) =>
   }
 
   return (
-    <Card style={styles.card}>
+    <Card className="card">
       <CardHeader
         title={
           <Typography
-            style={styles.title}
+            className="title"
           >
             {props.product && props.product.name}
           </Typography>
         }
       />
       <CardMedia
-        style={styles.media}
+        className="media"
         image={props.product && props.product.image}
       />
       <CardContent>

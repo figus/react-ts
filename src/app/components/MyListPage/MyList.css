@@ -1,27 +1,3 @@
-.container {
-  display: 'flex';
-  padding-left: 16px;
-  padding-right: 16;
-}
-
-.searchIcon {
-  margin-top: 37px;
-}
-
-.searchButton {
-  margin-top: 23px !important;
-}
-
-.circularProgress {
-  position: absolute;
-  margin-top: 25px;
-  margin-left: -47px;
-}
-
-.linearProgress {
-  top: -10px;
-}
-
 .card {
   height: 100%;
 }

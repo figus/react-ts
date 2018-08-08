@@ -1,31 +1,13 @@
 import * as React from 'react';
 
+import './search.css';
+
 import { Card, CardContent, CardMedia, CardActions, Button, Typography, CardHeader } from '@material-ui/core';
 import IProduct from '../../interfaces/IProduct';
 
 import { connect } from 'react-redux';
 import * as actions from './../../actions/SearchActions';
 import IReduxState from '../../interfaces/IReduxState';
-
-const styles = {
-  card: {
-    width: 200,
-    height: '100%',
-  },
-  media: {
-    height: 200,
-  },
-  title: {
-    fontSize: '0.875rem',
-    fontWeight: 500,
-    minHeight: 40,
-    maxHeight: 40,
-    overflow: 'hidden',
-  },
-  addButton: {
-    marginLeft: 'auto',
-  },
-};
 
 interface IStateProps
 {
@@ -53,18 +35,18 @@ const ResultCard = (props: IResultCard) =>
   };
 
   return (
-    <Card style={styles.card}>
+    <Card className="card">
       <CardHeader
         title={
           <Typography
-            style={styles.title}
+            className="title"
           >
             {props.product.name}
           </Typography>
         }
       />
       <CardMedia
-        style={styles.media}
+        className="media"
         image={props.product.image}
       />
       <CardContent>
@@ -77,7 +59,7 @@ const ResultCard = (props: IResultCard) =>
         <Button
           size="small"
           color="primary"
-          style={styles.addButton}
+          className="addButton"
           onClick={addHandler.bind(this, props.product.barcode)}
         >
           Add to my list
