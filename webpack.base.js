@@ -1,9 +1,14 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-  mode: "development",
+const plugins = [
+  new HtmlWebpackPlugin({
+    template: path.resolve(__dirname, 'src', 'app', 'index.html')
+  })
+];
+
+module.exports = options => ({
+  mode: options.mode,
   entry: {
     app: [
       './src/app/index.tsx',
@@ -46,10 +51,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'app', 'index.html')
-    }),
-    new webpack.HotModuleReplacementPlugin()
-  ]
-}
+  devServer: options.devServer,
+  plugins: plugins.concat(options.plugins)
+});
