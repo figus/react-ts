@@ -13,6 +13,7 @@ interface ISearchAreaProps
 {
   searchAction: any;
   searching: boolean;
+  initialText?: string;
 }
 
 const SearchArea = (props: ISearchAreaProps) =>
@@ -42,6 +43,7 @@ const SearchArea = (props: ISearchAreaProps) =>
             placeholder="Enter a term or barcode to search"
             margin="normal"
             fullWidth={true}
+            defaultValue={props.initialText || ''}
           />
           {props.searching && <LinearProgress className="linearProgress" />}
         </Grid>

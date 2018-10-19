@@ -23,6 +23,13 @@ class SearchPage extends React.Component<any, any> {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  public componentDidMount() {
+    const term: string = this.props.match.params.term || '';
+    if (term) {
+      this.performSearch(term);
+    }
+  }
+
   public render()
   {
     return (
@@ -30,20 +37,27 @@ class SearchPage extends React.Component<any, any> {
         <SearchArea
           searchAction={this.handleSearch}
           searching={this.state.searching}
+          initialText={this.props.match.params.term || ''}
         />
         <ResultsArea results={this.state.searchResults} />
       </div>
     );
   }
 
-  private handleSearch(event: React.SyntheticEvent)
-  {
+  private handleSearch(event: React.SyntheticEvent) {
     event.preventDefault();
+
+    const term: string = (document.querySelector('#searchField') as HTMLInputElement).value;
+    this.props.history.push('/search/' + term);
+
+    this.performSearch(term);
+  }
+
+  private performSearch(term: string)
+  {
     this.setState({
       searching: true,
     });
-
-    const term: string = (document.querySelector('#searchField') as HTMLInputElement).value;
 
     productSearch(term)
       .then((products: IProduct[]) =>
