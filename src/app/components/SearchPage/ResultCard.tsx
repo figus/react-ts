@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './search.css';
+import './Search.css';
 
 import { Card, CardContent, CardMedia, CardActions, Button, Typography, CardHeader } from '@material-ui/core';
 import IProduct from '../../interfaces/IProduct';
