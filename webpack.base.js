@@ -12,13 +12,13 @@ module.exports = options => ({
   entry: {
     app: [
       './src/app/index.tsx',
-      'webpack-hot-middleware/client'
     ],
     vendor: ['react', 'react-dom']
   },
   output: {
     filename: "js/[name].bundle.js",
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
 
   // Enable sourcemaps for debugging webpack's output
