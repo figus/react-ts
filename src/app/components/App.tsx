@@ -9,6 +9,7 @@ import ScanPage from './ScanPage/ScanPage';
 import SearchPage from './SearchPage/SearchPage';
 import MyListPage from './MyListPage/MyListPage';
 import AboutPage from './AboutPage/AboutPage';
+import NoMatch from './NoMatch/NoMatch';
 
 class App extends React.Component
 {
@@ -25,9 +26,11 @@ class App extends React.Component
           <UpperBar />
           <Switch>
             <Route exact={true} path="/" component={MyListPage} />
+            <Route path="/search/:term" component={SearchPage} />
             <Route path="/search" component={SearchPage} />
             <Route path="/scan" component={ScanPage} />
             <Route path="/about" component={AboutPage} />
+            <Route component={NoMatch} />
           </Switch>
         </Theme>
       </CssBaseline>
