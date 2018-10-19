@@ -68,7 +68,7 @@ class UpperBar extends React.Component<any, IUpperBarState> {
             </IconButton>
             <Typography
               style={styles.flex}
-              variant="title"
+              variant="h6"
               color="inherit"
             >
               {this.state.title}
