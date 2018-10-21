@@ -7,7 +7,7 @@ import ResultsArea from './ResultsArea';
 import IReduxState from '../../interfaces/IReduxState';
 import { addSearchHistoryTerm } from '../../actions/SearchActions';
 import IProduct from '../../interfaces/IProduct';
-import { productSearch } from './../../Api/Products';
+import { productSearch, searchWooliesBarcodeAsync } from './../../Api/Products';
 
 class SearchPage extends React.Component<any, any> {
   constructor(props: any, context: any)
@@ -23,9 +23,11 @@ class SearchPage extends React.Component<any, any> {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  public componentDidMount() {
+  public componentDidMount()
+  {
     const term: string = this.props.match.params.term || '';
-    if (term) {
+    if (term)
+    {
       this.performSearch(term);
     }
   }
@@ -44,7 +46,8 @@ class SearchPage extends React.Component<any, any> {
     );
   }
 
-  private handleSearch(event: React.SyntheticEvent) {
+  private handleSearch(event: React.SyntheticEvent)
+  {
     event.preventDefault();
 
     const term: string = (document.querySelector('#searchField') as HTMLInputElement).value;
@@ -59,7 +62,7 @@ class SearchPage extends React.Component<any, any> {
       searching: true,
     });
 
-    productSearch(term)
+    searchWooliesBarcodeAsync(term)
       .then((products: IProduct[]) =>
       {
         this.setState({
