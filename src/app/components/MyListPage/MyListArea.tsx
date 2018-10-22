@@ -29,7 +29,7 @@ const MyListArea = (props: IMyListAreaProps) =>
       spacing={0}
     >
       {
-        ProductFn.barcodeListSearchAsync(props.barcodeList).map((pp: Promise<IProduct>) =>
+        ProductFn.barcodeListSearch(props.barcodeList).map((pp: Promise<IProduct>) =>
         {
           return (
             // tslint:disable-next-line:jsx-key
