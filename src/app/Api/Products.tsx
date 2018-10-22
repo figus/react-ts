@@ -1,27 +1,20 @@
 import IProduct from './../interfaces/IProduct';
 import { IWoolworthsResult, IProductInner, IProductOuter } from './../interfaces/IWoolworthsResult';
 
-export const productSearch = (term: string): Promise<IProduct[]> =>
+export const productSearchAsync = async (term: string): Promise<IProduct[]> =>
 {
-  let isBarcode = false;
-  if (term.match(/^\d+$/gm))
-  {
-    isBarcode = true;
-  }
+  const isBarcode = term.match(/^\d+$/gm) ? true : false;
 
-  const woollies = woolworthsSearch(term);
+  const wResults = await searchWoolworthsAsync(term, isBarcode);
 
-  const resultados = Array<Promise<IProduct[]>>();
-  resultados.push(woolworthsSearch(term));
-
-  return woollies;
+  return wResults;
 };
 
-export const searchWooliesBarcodeAsync = async (term: string): Promise<IProduct[]> =>
+export const searchWoolworthsAsync = async (term: string, barcode: boolean = false): Promise<IProduct[]> =>
 {
-  if (!term.match(/\d+/gm))
+  if (barcode && !term.match(/\d+/gm))
   {
-    return null;
+    throw new Error(`${term} is not a barcode`);
   }
 
   const queryUrl =
@@ -34,38 +27,45 @@ export const searchWooliesBarcodeAsync = async (term: string): Promise<IProduct[
     Location: '/shop/search/products?searchTerm=' + term,
   };
 
-  const resultados = await fetch(queryUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(query),
-  });
-  const productsRaw: IWoolworthsResult = await resultados.json();
-
-  const products: IProduct[] = [];
-  productsRaw.Products.map((productOuter: IProductOuter) =>
+  try
   {
-    productOuter.Products.map((productInner: IProductInner) =>
-    {
-      if (productInner.Barcode === term)
-      {
-        products.push({
-          barcode: productInner.Barcode,
-          hasCupString: productInner.HasCupPrice,
-          cupString: productInner.CupString,
-          image: productInner.MediumImageFile,
-          name: productInner.Name,
-          price: productInner.Price,
-          packageSize: productInner.PackageSize,
-          onSale: productInner.IsOnSpecial,
-          origin: 'woolworths',
-        });
-      }
+    const resultados = await fetch(queryUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(query),
     });
-  });
+    const products: IProduct[] = [];
 
-  return products;
+    const productsRaw: IWoolworthsResult = await resultados.json();
+    productsRaw.Products.map((productOuter: IProductOuter) =>
+    {
+      productOuter.Products.map((productInner: IProductInner) =>
+      {
+        if (!barcode || productInner.Barcode === term)
+        {
+          products.push({
+            barcode: productInner.Barcode,
+            hasCupString: productInner.HasCupPrice,
+            cupString: productInner.CupString,
+            image: productInner.MediumImageFile,
+            name: productInner.Name,
+            price: productInner.Price,
+            packageSize: productInner.PackageSize,
+            onSale: productInner.IsOnSpecial,
+            origin: 'woolworths',
+          });
+        }
+      });
+    });
+
+    return products;
+  }
+  catch (err)
+  {
+    throw new Error('Error al buscar producto: ' + err);
+  }
 };
 
 export const woolworthsSearch = async (term: string): Promise<IProduct[]> =>
@@ -166,7 +166,7 @@ export const colesSearch = (term: string): Promise<IProduct[]> =>
 
 export const barcodeSearch = (barcode: string): Promise<IProduct> =>
 {
-  return productSearch(barcode).then((res: IProduct[]) =>
+  return productSearchAsync(barcode).then((res: IProduct[]) =>
   {
     return res
       .filter((item: IProduct) =>

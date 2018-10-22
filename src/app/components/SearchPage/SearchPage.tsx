@@ -7,7 +7,7 @@ import ResultsArea from './ResultsArea';
 import IReduxState from '../../interfaces/IReduxState';
 import { addSearchHistoryTerm } from '../../actions/SearchActions';
 import IProduct from '../../interfaces/IProduct';
-import { productSearch, searchWooliesBarcodeAsync } from './../../Api/Products';
+import { productSearchAsync, searchWoolworthsAsync } from './../../Api/Products';
 
 class SearchPage extends React.Component<any, any> {
   constructor(props: any, context: any)
@@ -28,7 +28,7 @@ class SearchPage extends React.Component<any, any> {
     const term: string = this.props.match.params.term || '';
     if (term)
     {
-      this.performSearch(term);
+      this.performSearchAsync(term);
     }
   }
 
@@ -53,30 +53,29 @@ class SearchPage extends React.Component<any, any> {
     const term: string = (document.querySelector('#searchField') as HTMLInputElement).value;
     this.props.history.push('/search/' + term);
 
-    this.performSearch(term);
+    this.performSearchAsync(term);
   }
 
-  private performSearch(term: string)
+  private async performSearchAsync(term: string)
   {
     this.setState({
       searching: true,
     });
 
-    searchWooliesBarcodeAsync(term)
-      .then((products: IProduct[]) =>
-      {
-        this.setState({
-          searchTerm: term,
-          searchResults: products,
-          searching: false,
-        });
-      })
-      .catch(() =>
-      {
-        this.setState({
-          searching: false,
-        });
+    try
+    {
+      const resultados = await productSearchAsync(term);
+      this.setState({
+        searchTerm: term,
+        searchResults: resultados,
+        searching: false,
       });
+    } catch (err)
+    {
+      this.setState({
+        searching: false,
+      });
+    }
   }
 }
 
