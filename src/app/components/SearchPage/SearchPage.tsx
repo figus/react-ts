@@ -7,7 +7,7 @@ import ResultsArea from './ResultsArea';
 import IReduxState from '../../interfaces/IReduxState';
 import { addSearchHistoryTerm } from '../../actions/SearchActions';
 import IProduct from '../../interfaces/IProduct';
-import { productSearchAsync, searchWoolworthsAsync } from './../../Api/Products';
+import { productSearchAsync } from './../../Api/Products';
 
 class SearchPage extends React.Component<any, any> {
   constructor(props: any, context: any)
@@ -46,7 +46,7 @@ class SearchPage extends React.Component<any, any> {
     );
   }
 
-  private handleSearch(event: React.SyntheticEvent)
+  private async handleSearch(event: React.SyntheticEvent)
   {
     event.preventDefault();
 

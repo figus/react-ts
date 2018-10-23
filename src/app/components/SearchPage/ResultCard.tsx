@@ -8,6 +8,7 @@ import IProduct from '../../interfaces/IProduct';
 import { connect } from 'react-redux';
 import * as actions from './../../actions/SearchActions';
 import IReduxState from '../../interfaces/IReduxState';
+import ICard from '../../interfaces/ICard';
 
 interface IStateProps
 {
@@ -15,7 +16,7 @@ interface IStateProps
 }
 interface IOwnProps
 {
-  product: IProduct;
+  product: ICard;
 }
 interface IDispatchProps
 {
@@ -27,7 +28,7 @@ const ResultCard = (props: IResultCard) =>
 {
 
   const addHandler = (barcode: string) =>
-   {
+  {
     if (props.myList.filter((code) => barcode === code).length === 0)
     {
       props.addToMyList(barcode);
@@ -47,13 +48,33 @@ const ResultCard = (props: IResultCard) =>
       />
       <CardMedia
         className="media"
-        image={props.product.image}
+        image={props.product.imageUrl}
       />
       <CardContent>
-        <Typography component="p">
-          Price: {props.product.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })} <br />
-          Content: {props.product.packageSize} {props.product.hasCupString && `(${props.product.cupString})`}
+        <Typography
+          component="p"
+        >
+          Content: {props.product.size}
         </Typography>
+        {
+          props.product.prices.map((item) =>
+          {
+            return (
+              // tslint:disable-next-line:jsx-key
+              <Typography
+                component="p"
+              >
+                {
+                  item.store.toUpperCase()
+                } price: {
+                  item.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })
+                } {
+                  `(${item.cupString})`
+                }
+              </Typography>
+            );
+          })
+        }
       </CardContent>
       <CardActions>
         <Button

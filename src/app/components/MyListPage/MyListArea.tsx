@@ -4,6 +4,7 @@ import IProduct from '../../interfaces/IProduct';
 import * as ProductFn from './../../Api/Products';
 import ProductCard from './ProductCard';
 import Async from 'react-promise';
+import ICard from '../../interfaces/ICard';
 
 interface IMyListAreaProps
 {
@@ -11,7 +12,7 @@ interface IMyListAreaProps
   barcodeList: string[];
 }
 
-const productCard = (product: IProduct) =>
+const productCard = (product: ICard) =>
 {
   return (
     <ProductCard product={product} />
@@ -29,7 +30,7 @@ const MyListArea = (props: IMyListAreaProps) =>
       spacing={0}
     >
       {
-        ProductFn.barcodeListSearch(props.barcodeList).map((pp: Promise<IProduct>) =>
+        ProductFn.barcodeListSearch(props.barcodeList).map((pp: Promise<ICard>) =>
         {
           return (
             // tslint:disable-next-line:jsx-key

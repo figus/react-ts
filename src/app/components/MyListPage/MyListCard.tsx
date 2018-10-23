@@ -5,10 +5,11 @@ import './MyList.css';
 import { Card, CardContent, CardMedia, CardActions, Typography, CardHeader, Grid } from '@material-ui/core';
 import IProduct from '../../interfaces/IProduct';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ICard from '../../interfaces/ICard';
 
 interface IMyListCard
 {
-  product: IProduct;
+  product: ICard;
 }
 const MyListCard = (props: IMyListCard) =>
 {
@@ -46,19 +47,29 @@ const MyListCard = (props: IMyListCard) =>
       />
       <CardMedia
         className="media"
-        image={props.product && props.product.image}
+        image={props.product && props.product.imageUrl}
       />
       <CardContent>
         <Typography component="p">
-          Price: {
-            props.product && props.product.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })
-          } <br />
           Content: {
-            props.product && props.product.packageSize
-          } {
-            props.product && props.product.hasCupString && `(${props.product && props.product.cupString})`
+            props.product && props.product.size
           }
         </Typography>
+        {
+          props.product.prices.map((item) =>
+          {
+            return (
+              // tslint:disable-next-line:jsx-key
+              <Typography component="p">
+                {item.store} price: {
+                  props.product && item.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })
+                } {
+                  props.product && `(${props.product && item.cupString})`
+                }
+              </Typography>
+            );
+          })
+        }
       </CardContent>
       <CardActions />
     </Card>

@@ -2,9 +2,11 @@ import * as React from 'react';
 import MyListCard from './MyListCard';
 import IProduct from '../../interfaces/IProduct';
 import { Grid } from '@material-ui/core';
+import ICard from '../../interfaces/ICard';
 
-interface IProps {
-  product: IProduct;
+interface IProps
+{
+  product: ICard;
 }
 
 const ProductCard = (props: IProps) =>

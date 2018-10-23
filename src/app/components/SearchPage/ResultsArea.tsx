@@ -3,10 +3,11 @@ import ResultCard from './ResultCard';
 import { Grid } from '@material-ui/core';
 import spacing from '@material-ui/core/styles/spacing';
 import IProduct from '../../interfaces/IProduct';
+import ICard from '../../interfaces/ICard';
 
 interface IResultsAreaProps
 {
-  results: any[];
+  results: ICard[];
 }
 
 const ResultsArea = (props: IResultsAreaProps) =>
@@ -19,7 +20,7 @@ const ResultsArea = (props: IResultsAreaProps) =>
       spacing={0}
     >
       {
-        props.results.map((product: IProduct) =>
+        props.results.map((product: ICard) =>
         {
           return (
             <Grid
