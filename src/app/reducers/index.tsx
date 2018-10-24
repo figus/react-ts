@@ -9,6 +9,7 @@ interface IAction
 
 const initialState: IState = {
   searchHistoryTerms: [],
+  searchResults: [],
   myList: ['9300610637001', '11210607033', '9300610637001', '11210607033',
   '9300610637001', '11210607033', '9300610637001', '11210607033'],
 };

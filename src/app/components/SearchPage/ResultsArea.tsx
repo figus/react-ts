@@ -4,11 +4,19 @@ import { Grid } from '@material-ui/core';
 import spacing from '@material-ui/core/styles/spacing';
 import IProduct from '../../interfaces/IProduct';
 import ICard from '../../interfaces/ICard';
+import Async from 'react-promise';
 
 interface IResultsAreaProps
 {
-  results: ICard[];
+  results: Array<Promise<ICard>>;
 }
+
+const resultCard = (product: ICard) =>
+{
+  return (
+    <ResultCard key={product && product.barcode} product={product} />
+  );
+};
 
 const ResultsArea = (props: IResultsAreaProps) =>
 {
@@ -20,17 +28,22 @@ const ResultsArea = (props: IResultsAreaProps) =>
       spacing={0}
     >
       {
-        props.results.map((product: ICard) =>
+        props.results.map((product: Promise<ICard>) =>
         {
           return (
+            // tslint:disable-next-line:jsx-key
             <Grid
               item={true}
-              key={product.barcode}
+              key={Math.random() * 1000}
               style={{
                 margin: spacing.unit,
               }}
             >
-              <ResultCard product={product} />
+            <Async
+              promise={product}
+              then={resultCard}
+              pending={resultCard.bind(this, undefined)}
+            />
             </Grid>
           );
         })

@@ -9,10 +9,12 @@ import { connect } from 'react-redux';
 import * as actions from './../../actions/SearchActions';
 import IReduxState from '../../interfaces/IReduxState';
 import ICard from '../../interfaces/ICard';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 interface IStateProps
 {
   myList: string[];
+  searchResults: ICard[];
 }
 interface IOwnProps
 {
@@ -34,6 +36,27 @@ const ResultCard = (props: IResultCard) =>
       props.addToMyList(barcode);
     }
   };
+
+  if (props.product === undefined)
+  {
+    return (
+      <Card className="card">
+        <CardHeader
+          title={
+            <Typography
+              className="title"
+            >
+              Loading...
+            </Typography>
+          }
+        />
+        <CardContent className="contentLoading">
+          <CircularProgress size={50} />
+        </CardContent>
+        <CardActions />
+      </Card>
+    );
+  }
 
   return (
     <Card className="card">
@@ -62,12 +85,13 @@ const ResultCard = (props: IResultCard) =>
             return (
               // tslint:disable-next-line:jsx-key
               <Typography
+                key={item.id}
                 component="p"
               >
                 {
-                  item.store.toUpperCase()
+                  item.store && item.store.toUpperCase()
                 } price: {
-                  item.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })
+                  item.price && item.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })
                 } {
                   `(${item.cupString})`
                 }
@@ -94,6 +118,7 @@ const mapStateToProps = (store: IReduxState) =>
 {
   return {
     myList: store.myList,
+    searchResults: store.searchResults,
   };
 };
 

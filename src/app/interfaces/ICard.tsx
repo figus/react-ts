@@ -3,11 +3,12 @@ export default interface ICard {
   name: string;
   imageUrl: string;
   size: string;
-  prices: [
-    {
-      price: number;
-      cupString: string;
-      store: string;
-    }
-  ];
+  prices: IPrice[];
+}
+
+export interface IPrice {
+  id: string;
+  price: number;
+  cupString: string;
+  store: string;
 }
