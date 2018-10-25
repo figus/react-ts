@@ -3,7 +3,6 @@ import * as React from 'react';
 import './Search.css';
 
 import { Card, CardContent, CardMedia, CardActions, Button, Typography, CardHeader } from '@material-ui/core';
-import IProduct from '../../interfaces/IProduct';
 
 import { connect } from 'react-redux';
 import * as actions from './../../actions/SearchActions';
@@ -14,7 +13,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 interface IStateProps
 {
   myList: string[];
-  searchResults: ICard[];
 }
 interface IOwnProps
 {
@@ -36,27 +34,6 @@ const ResultCard = (props: IResultCard) =>
       props.addToMyList(barcode);
     }
   };
-
-  if (props.product === undefined)
-  {
-    return (
-      <Card className="card">
-        <CardHeader
-          title={
-            <Typography
-              className="title"
-            >
-              Loading...
-            </Typography>
-          }
-        />
-        <CardContent className="contentLoading">
-          <CircularProgress size={50} />
-        </CardContent>
-        <CardActions />
-      </Card>
-    );
-  }
 
   return (
     <Card className="card">
@@ -83,7 +60,6 @@ const ResultCard = (props: IResultCard) =>
           props.product.prices.map((item) =>
           {
             return (
-              // tslint:disable-next-line:jsx-key
               <Typography
                 key={item.id}
                 component="p"
@@ -91,9 +67,9 @@ const ResultCard = (props: IResultCard) =>
                 {
                   item.store && item.store.toUpperCase()
                 } price: {
-                  item.price && item.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })
+                  item.price ? item.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }) : 'N/A'
                 } {
-                  `(${item.cupString})`
+                  item.cupString && `(${item.cupString})`
                 }
               </Typography>
             );
@@ -118,7 +94,6 @@ const mapStateToProps = (store: IReduxState) =>
 {
   return {
     myList: store.myList,
-    searchResults: store.searchResults,
   };
 };
 

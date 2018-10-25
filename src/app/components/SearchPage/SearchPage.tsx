@@ -6,8 +6,8 @@ import SearchArea from './SearchArea';
 import ResultsArea from './ResultsArea';
 import IReduxState from '../../interfaces/IReduxState';
 import { addSearchHistoryTerm } from '../../actions/SearchActions';
-import IProduct from '../../interfaces/IProduct';
-import { productSearchAsync, searchWoolworthsAsync, swt, gcp } from './../../Api/Products';
+import { busqueda } from './../../Api/Products';
+import ICard from '../../interfaces/ICard';
 
 class SearchPage extends React.Component<any, any> {
   constructor(props: any, context: any)
@@ -64,8 +64,7 @@ class SearchPage extends React.Component<any, any> {
 
     try
     {
-      const isBarcode = term.match(/^\d+$/g) ? true : false;
-      const resultados = await swt(term, isBarcode);
+      const resultados: ICard[] = await busqueda(term);
 
       this.setState({
         searchTerm: term,
@@ -86,7 +85,6 @@ const mapStateToProps = (state: IReduxState) =>
 {
   return {
     searchHistoryTerms: state.searchHistoryTerms,
-    searchResults: state.searchResults,
   };
 };
 

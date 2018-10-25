@@ -45,6 +45,7 @@ export interface IA
 export interface IP1
 {
   o: string;
+  l4: string;
 }
 
 export interface ICatalogEntryView
@@ -54,6 +55,7 @@ export interface ICatalogEntryView
   p1: IP1;
   s: string;
   t: string;
+  t1: string;
   u: string;
   s9: string;
   pl: string;

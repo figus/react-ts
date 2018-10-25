@@ -3,7 +3,7 @@ import * as React from 'react';
 import './MyList.css';
 
 import { Card, CardContent, CardMedia, CardActions, Typography, CardHeader, Grid } from '@material-ui/core';
-import IProduct from '../../interfaces/IProduct';
+import ISearchResult from '../../interfaces/ISearchResult';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ICard from '../../interfaces/ICard';
 
@@ -59,8 +59,7 @@ const MyListCard = (props: IMyListCard) =>
           props.product.prices.map((item) =>
           {
             return (
-              // tslint:disable-next-line:jsx-key
-              <Typography component="p">
+              <Typography component="p" key={item.id}>
                 {item.store} price: {
                   props.product && item.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })
                 } {

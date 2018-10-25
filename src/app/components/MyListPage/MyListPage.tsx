@@ -1,7 +1,7 @@
 import * as React from 'react';
 import IReduxState from '../../interfaces/IReduxState';
 import { connect } from 'react-redux';
-import IProduct from './../../interfaces/IProduct';
+import ISearchResult from '../../interfaces/ISearchResult';
 import MyListArea from './MyListArea';
 
 interface IMyListPage
@@ -10,7 +10,7 @@ interface IMyListPage
 }
 interface IState
 {
-  products: IProduct[];
+  products: ISearchResult[];
 }
 class MyListPage extends React.Component<IMyListPage, IState> {
   constructor(props, context)

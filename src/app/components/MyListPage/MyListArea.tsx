@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Grid } from '@material-ui/core';
-import IProduct from '../../interfaces/IProduct';
 import * as ProductFn from './../../Api/Products';
 import ProductCard from './ProductCard';
 import Async from 'react-promise';
