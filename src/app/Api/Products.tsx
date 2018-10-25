@@ -4,22 +4,11 @@ import { IColesResult, ICatalogEntryView } from '../interfaces/IColesResult';
 import ICard from '../interfaces/ICard';
 import { Promise as Promis } from 'bluebird';
 
-export const productSearchAsync = async (term: string): Promise<ICard[]> =>
-{
-  const isBarcode = term.match(/^\d+$/gm) ? true : false;
-
-  const wResults = await buscaWoolworthsAsync(term, isBarcode);
-  const cResults = await buscaColesAsync(term, isBarcode);
-
-  const tarjetas = combinaResultados([wResults, cResults]);
-
-  return tarjetas;
-};
 export const barcodeListSearch = (barcode: string[]): Array<Promise<ICard>> =>
 {
   return barcode.map(async (bc: string) =>
   {
-    const results = await productSearchAsync(bc);
+    const results = await busqueda(bc);
     if (results.length > 0)
     {
       return results[0];
@@ -38,15 +27,6 @@ export const busqueda = async (term: string) =>
   }
   else
   {
-    //   resultadosC = await resultadosW.map(async (item) =>
-    //   {
-    //     const a = await buscaColesAsync((item).barcode, true);
-    //     if (a.length > 0 && a[0] !== undefined)
-    //     {
-    //       return a[0];
-    //     }
-    //   });
-
     resultadosC = await Promis.map(resultadosW, async (item) =>
     {
       const a = await buscaColesAsync((item).barcode, true);
