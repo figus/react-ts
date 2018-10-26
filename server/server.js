@@ -5,9 +5,17 @@ var url = require("url");
 var request = require("request");
 var cluster = require('cluster');
 var throttle = require("tokenthrottle")({rate: config.max_requests_per_second});
+var crypto = require('crypto');
+var fs = require("fs");
+var path = require("path");
 
 http.globalAgent.maxSockets = Infinity;
 https.globalAgent.maxSockets = Infinity;
+
+var options = {
+    key: fs.readFileSync(path.resolve(__dirname, 'cert', 'localhost+3-key.pem')),
+    cert: fs.readFileSync(path.resolve(__dirname, 'cert', 'localhost+3.pem'))
+  };
 
 var publicAddressFinder = require("public-address");
 var publicIP;
@@ -105,7 +113,7 @@ function processRequest(req, res) {
         if (req.headers["host"]) {
             req.headers["host"] = remoteURL.host;
         }
-        
+
         // Remove origin and referer headers. TODO: This is a bit naughty, we should remove at some point.
         delete req.headers["origin"];
         delete req.headers["referer"];
@@ -169,7 +177,7 @@ if (cluster.isMaster) {
 }
 else
 {
-    http.createServer(function (req, res) {
+    let server = https.createServer(options, function (req, res) {
 
         // Process AWS health checks
         if (req.url === "/health") {
@@ -198,7 +206,8 @@ else
             processRequest(req, res);
         }
 
-    }).listen(config.port);
+    })
+    server.listen(config.port);
 
     console.log("thingproxy.freeboard.io process started (PID " + process.pid + ")");
 }
