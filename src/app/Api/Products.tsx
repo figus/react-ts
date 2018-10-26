@@ -105,7 +105,7 @@ export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = fa
     throw new Error(`${term} is not a barcode`);
   }
 
-  const proxy = 'http://localhost:3001/fetch/';
+  const proxy = 'https://192.168.1.2:3001/fetch/';
   const queryUrl = proxy +
     'https://www.woolworths.com.au/apis/ui/Search/products';
   const query = {
@@ -166,7 +166,7 @@ export const buscaColesAsync = async (term: string, isBarcode: boolean = false) 
     throw new Error(`${term} is not a barcode`);
   }
 
-  const proxy = 'http://localhost:3001/fetch/';
+  const proxy = 'https://192.168.1.2:3001/fetch/';
   const queryUrl = proxy +
     'https://shop.coles.com.au/search/resources/store/20501/productview/bySearchTerm/' + term;
 
