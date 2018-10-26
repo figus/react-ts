@@ -3,7 +3,6 @@ import * as React from 'react';
 import './MyList.css';
 
 import { Card, CardContent, CardMedia, CardActions, Typography, CardHeader, Grid } from '@material-ui/core';
-import ISearchResult from '../../interfaces/ISearchResult';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ICard from '../../interfaces/ICard';
 
