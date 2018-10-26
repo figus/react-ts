@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Scanner from './Scanner';
-import Result from './Result';
+import './Scan.css';
 
 interface IState
 {
@@ -26,12 +26,8 @@ class ScanPage extends React.Component<any, IState>
   public render()
   {
     return (
-      <div>
-        <button onClick={this._scan}>{this.state.scanning ? 'Stop' : 'Start'}</button>
-        <ul className="results">
-          {this.state.results.map((result: any) => (<Result key={result.codeResult.code} result={result} />))}
-        </ul>
-        {this.state.scanning ? <Scanner onDetected={this._onDetected} /> : null}
+      <div className="videoContainer">
+        <Scanner onDetected={this._onDetected} />
       </div>
     );
   }
@@ -48,6 +44,7 @@ class ScanPage extends React.Component<any, IState>
     this.setState((prevState) => ({
       results: prevState.results.concat([result]),
     }));
+    this.props.history.push('/search/' + result.codeResult.code);
   }
 }
 

@@ -21,8 +21,8 @@ class Scanner extends React.Component<IProps, any>
       inputStream: {
         type: 'LiveStream',
         constraints: {
-          width: 640,
-          height: 480,
+          width: window.screen.width * 0.9,
+          height: window.screen.height * 0.9,
           facing: 'environment', // or user
         },
       },
@@ -30,7 +30,7 @@ class Scanner extends React.Component<IProps, any>
         patchSize: 'medium',
         halfSample: true,
       },
-      numOfWorkers: 2,
+      numOfWorkers: navigator.hardwareConcurrency,
       decoder: {
         readers: ['ean_reader'],
         debug: {
