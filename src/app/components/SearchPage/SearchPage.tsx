@@ -16,7 +16,7 @@ class SearchPage extends React.Component<any, any> {
 
     this.state = {
       searchTerm: '',
-      searchResults: [],
+      searchResults: undefined,
       searching: false,
     };
 

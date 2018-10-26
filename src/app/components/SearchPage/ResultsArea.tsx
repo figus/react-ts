@@ -11,41 +11,48 @@ interface IResultsAreaProps
   results: ICard[];
 }
 
-const resultCard = (product: ICard) =>
-{
-  return (
-    <ResultCard key={product && product.barcode} product={product} />
-  );
-};
-
 const ResultsArea = (props: IResultsAreaProps) =>
 {
-  return (
-    <Grid
-      container={true}
-      justify="center"
-      alignItems="stretch"
-      spacing={0}
-    >
-      {
-        props.results.map((product: ICard) =>
+  if (props.results === undefined)
+  {
+    return (
+      <p>First</p>
+    );
+  }
+  else if (props.results.length > 0)
+  {
+    return (
+      <Grid
+        container={true}
+        justify="center"
+        alignItems="stretch"
+        spacing={0}
+      >
         {
-          return (
-            // tslint:disable-next-line:jsx-key
-            <Grid
-              item={true}
-              key={Math.random() * 1000}
-              style={{
-                margin: spacing.unit,
-              }}
-            >
-            <ResultCard product={product} />
-            </Grid>
-          );
-        })
-      }
-    </Grid>
-  );
+          props.results.map((product: ICard) =>
+          {
+            return (
+              <Grid
+                item={true}
+                key={Math.random() * 1000}
+                style={{
+                  margin: spacing.unit,
+                }}
+              >
+                <ResultCard key={product && product.barcode} product={product} />
+              </Grid>
+            );
+          })
+        }
+      </Grid>
+    );
+  }
+  else
+  {
+    return (
+      <p>No match</p>
+    );
+  }
 };
 
 export default ResultsArea;
