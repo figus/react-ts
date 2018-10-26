@@ -128,6 +128,8 @@ export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = fa
 
     const productsRaw: IWoolworthsResult = await resultados.json();
     const products: ISearchResult[] = [];
+
+    if (productsRaw.Products === null) { return products; }
     productsRaw.Products.map((productOuter: IProductOuter) =>
     {
       productOuter.Products.map((productInner: IProductInner) =>
@@ -156,7 +158,7 @@ export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = fa
   }
   catch (err)
   {
-    throw new Error('Error al buscar producto: ' + err);
+    throw new Error('buscaWoolworthsAsync: ' + err);
   }
 };
 export const buscaColesAsync = async (term: string, isBarcode: boolean = false) =>
