@@ -7,7 +7,6 @@ import ICard from '../../interfaces/ICard';
 
 interface IMyListAreaProps
 {
-  // products: IProduct[];
   barcodeList: string[];
 }
 

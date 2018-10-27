@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import * as actions from './../../actions/SearchActions';
 import IReduxState from '../../interfaces/IReduxState';
 import ICard from '../../interfaces/ICard';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 interface IStateProps
 {

@@ -2,9 +2,7 @@ import * as React from 'react';
 import ResultCard from './ResultCard';
 import { Grid } from '@material-ui/core';
 import spacing from '@material-ui/core/styles/spacing';
-import ISearchResult from '../../interfaces/ISearchResult';
 import ICard from '../../interfaces/ICard';
-import Async from 'react-promise';
 
 interface IResultsAreaProps
 {
