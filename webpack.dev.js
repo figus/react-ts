@@ -16,7 +16,7 @@ module.exports = require('./webpack.base')({
     },
     historyApiFallback: true,
     port: 3000,
-    contentBase: path.join(__dirname, 'dist/'),
+    contentBase: path.join(__dirname, 'src'),
     host: '0.0.0.0',
     overlay: {
       warnings: true,

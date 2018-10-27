@@ -48,6 +48,11 @@ module.exports = options => ({
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
+      },
+
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
       }
     ]
   },

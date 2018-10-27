@@ -47,3 +47,29 @@
   margin-top: 40%;
   margin-left: 25%;
 }
+
+.searchBg {
+  display: flex;
+  justify-content: center;
+  color: lightgray;
+  margin-top: 2em;
+}
+
+.noResultsBg {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: gray;
+  display: flex;
+  margin-top: 2em;
+  font-weight: bold;
+  letter-spacing: 2px;
+  flex-flow: column;
+  align-items: center;
+}
+
+.noResultsBg > div:first-of-type {
+  width: 50%;
+}
+
+.noResultsBg img {
+  width: 100%;
+}

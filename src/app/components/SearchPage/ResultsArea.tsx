@@ -3,6 +3,8 @@ import ResultCard from './ResultCard';
 import { Grid } from '@material-ui/core';
 import spacing from '@material-ui/core/styles/spacing';
 import ICard from '../../interfaces/ICard';
+import SearchStart from './SearchStart';
+import SearchNoMatch from './SearchNoMatch';
 
 interface IResultsAreaProps
 {
@@ -14,7 +16,9 @@ const ResultsArea = (props: IResultsAreaProps) =>
   if (props.results === undefined)
   {
     return (
-      <p>First</p>
+      <div className="searchBg">
+        <SearchStart />
+      </div>
     );
   }
   else if (props.results.length > 0)
@@ -48,7 +52,9 @@ const ResultsArea = (props: IResultsAreaProps) =>
   else
   {
     return (
-      <p>No match</p>
+      <div className="noResultsBg">
+        <SearchNoMatch />
+      </div>
     );
   }
 };
