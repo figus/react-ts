@@ -1,7 +1,10 @@
 const webpack = require('webpack');
-const plugins = [new webpack.HotModuleReplacementPlugin()];
 const fs = require('fs');
 const path = require('path');
+
+const plugins = [
+  new webpack.HotModuleReplacementPlugin(),
+];
 
 module.exports = require('./webpack.base')({
   mode: 'development',
@@ -13,7 +16,12 @@ module.exports = require('./webpack.base')({
     },
     historyApiFallback: true,
     port: 3000,
+    contentBase: path.join(__dirname, 'dist/'),
     host: '0.0.0.0',
+    overlay: {
+      warnings: true,
+      errors: true
+    }
   },
   plugins
 });
