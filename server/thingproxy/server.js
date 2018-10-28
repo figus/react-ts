@@ -13,8 +13,8 @@ http.globalAgent.maxSockets = Infinity;
 https.globalAgent.maxSockets = Infinity;
 
 var options = {
-    key: fs.readFileSync(path.resolve(__dirname, 'cert', 'localhost+3-key.pem')),
-    cert: fs.readFileSync(path.resolve(__dirname, 'cert', 'localhost+3.pem'))
+    key: fs.readFileSync(path.resolve(__dirname, '../cert', 'localhost+3-key.pem')),
+    cert: fs.readFileSync(path.resolve(__dirname, '../cert', 'localhost+3.pem'))
   };
 
 var publicAddressFinder = require("public-address");

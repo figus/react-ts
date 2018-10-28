@@ -4,12 +4,9 @@
   "description": "Awesome Project",
   "main": "index.js",
   "scripts": {
-    "build:dev": "webpack --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
-    "start": "npm run thingproxy & webpack-dev-server --config webpack.dev.js",
-    "start:prod": "npm run thingproxy & webpack-dev-server --config webpack.prod.js",
-    "start:webpack": "webpack-dev-server --config webpack.dev.js",
-    "thingproxy": "node server/server.js"
+    "build": "webpack --config webpack.dev.js",
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "thingproxy": "node server/thingproxy/server.js"
   },
   "author": "Oscar Castillo",
   "license": "MIT",
