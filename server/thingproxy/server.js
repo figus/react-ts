@@ -3,9 +3,7 @@ var https = require('https');
 var config = require("./config");
 var url = require("url");
 var request = require("request");
-var cluster = require('cluster');
-var throttle = require("tokenthrottle")({rate: config.max_requests_per_second});
-var crypto = require('crypto');
+var throttle = require("tokenthrottle")({ rate: config.max_requests_per_second });
 var fs = require("fs");
 var path = require("path");
 
@@ -15,7 +13,7 @@ https.globalAgent.maxSockets = Infinity;
 var options = {
     key: fs.readFileSync(path.resolve(__dirname, '../cert', 'localhost+3-key.pem')),
     cert: fs.readFileSync(path.resolve(__dirname, '../cert', 'localhost+3.pem'))
-  };
+};
 
 var publicAddressFinder = require("public-address");
 var publicIP;
@@ -149,7 +147,7 @@ function processRequest(req, res) {
                 proxyRequest.end();
                 return sendTooBigResponse(res);
             }
-        }).on('error', function(err){
+        }).on('error', function (err) {
             writeResponse(res, 500, "Stream Error");
         });
 
@@ -161,7 +159,7 @@ function processRequest(req, res) {
                 proxyRequest.end();
                 return sendTooBigResponse(res);
             }
-        }).on('error', function(err){
+        }).on('error', function (err) {
             writeResponse(res, 500, "Stream Error");
         });
     }
@@ -170,44 +168,30 @@ function processRequest(req, res) {
     }
 }
 
-if (cluster.isMaster) {
-    for (var i = 0; i < config.cluster_process_count; i++) {
-        cluster.fork();
+
+let server = https.createServer(options, function (req, res) {
+    var clientIP = getClientAddress(req);
+    req.clientIP = clientIP;
+
+    // Log our request
+    if (config.enable_logging) {
+        console.log("%s %s %s", (new Date()).toJSON(), clientIP, req.method, req.url);
     }
-}
-else
-{
-    let server = https.createServer(options, function (req, res) {
 
-        // Process AWS health checks
-        if (req.url === "/health") {
-            return writeResponse(res, 200);
-        }
+    if (config.enable_rate_limiting) {
+        throttle.rateLimit(clientIP, function (err, limited) {
+            if (limited) {
+                return writeResponse(res, 429, "enhance your calm");
+            }
 
-        var clientIP = getClientAddress(req);
-
-        req.clientIP = clientIP;
-
-        // Log our request
-        if (config.enable_logging) {
-            console.log("%s %s %s", (new Date()).toJSON(), clientIP, req.method, req.url);
-        }
-
-        if (config.enable_rate_limiting) {
-            throttle.rateLimit(clientIP, function (err, limited) {
-                if (limited) {
-                    return writeResponse(res, 429, "enhance your calm");
-                }
-
-                processRequest(req, res);
-            })
-        }
-        else {
             processRequest(req, res);
-        }
+        })
+    }
+    else {
+        processRequest(req, res);
+    }
 
-    })
-    server.listen(config.port);
+})
+server.listen(config.port);
 
-    console.log("thingproxy.freeboard.io process started (PID " + process.pid + ")");
-}
+console.log("proxy process started (PID " + process.pid + ")");
