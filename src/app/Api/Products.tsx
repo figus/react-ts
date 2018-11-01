@@ -4,7 +4,7 @@ import { IColesResult, ICatalogEntryView } from '../interfaces/IColesResult';
 import ICard from '../interfaces/ICard';
 import { Promise as Promis } from 'bluebird';
 
-const proxy = 'https://192.168.1.2:3001/api/type2/';
+const proxy = '/api/type2/';
 
 export const barcodeListSearch = (barcode: string[]): Array<Promise<ICard>> =>
 {
